@@ -3,17 +3,23 @@
 ***
 > 一个用于 seajs(CMD) 模块合并工具的 gulp 插件。
 
+## 新特性
+
+* 支持`require("xx.css")`引入问题；
+* 以`seajs.config`的alias别名设置文件名命名模块id，而不是以当前文件名命名模块id；
+* 在部分文件不能识别成正确的`.js`文件，导致会在 `xx.js` 文件后面加上 `.js` 成 `xx.js.js`；
+
 ## 安装
 
 ```
-$ npm install --save-dev gulp-seajs-combo
+$ npm install --save-dev gulp-combo-seajs
 ```
 
 ## 使用
 
 ```
 var gulp = require( 'gulp' ),
-    seajsCombo = require( 'gulp-seajs-combo' );
+    seajsCombo = require( 'gulp-combo-seajs' );
     
 gulp.task( 'seajscombo', function(){
     return gulp.src( 'src/js/main.js' )
@@ -156,14 +162,23 @@ seajs.use( 'a' );
 
 合并后的模块标识不会保留其路径，`src/a` 的模块标识在合并后就变成了 `a`，`foo/bar/p` 在合并后变成了 `p`。
 
-如果合并的模块中模块标识有重复，gulp-seajs-combo 会修改原来的模块标识。`src/a` 和 `src/test/a` 在合并后由于去掉了路径都会变成 `a`，gulp-seajs-combo 会将后一个依赖 `src/test/a` 改成 `s_gulp_seajs_combo_xx`。
+如果合并的模块中模块标识有重复，gulp-combo-seajs 会修改原来的模块标识。`src/a` 和 `src/test/a` 在合并后由于去掉了路径都会变成 `a`，gulp-combo-seajs 会将后一个依赖 `src/test/a` 改成 `s_gulp_seajs_combo_xx`。
 
 ## 解析 `seajs.config`
 
-`gulp-seajs-combo` 会解析 `seajs.config` 中的 `alias` `vars` `paths` 这 3 个配置，其他的配置会忽略，并且配置的值必须为 `String` 类型，会忽略其中的变量，查看更多的 [seajs.config](https://github.com/seajs/seajs/issues/262)。[test/src/m.js](https://github.com/chenmnkken/gulp-seajs-combo/blob/master/test/src/m.js) 和 [test/build/m.js](https://github.com/chenmnkken/gulp-seajs-combo/blob/master/test/build/m.js) 是合并时解析规则的例子。
+`gulp-combo-seajs` 会解析 `seajs.config` 中的 `alias` `vars` `paths` 这 3 个配置，其他的配置会忽略，并且配置的值必须为 `String` 类型，会忽略其中的变量，查看更多的 [seajs.config](https://github.com/seajs/seajs/issues/262)。
 
-想深入了解 gulp-seajs-combo 可以查看[使用gulp-seajs-combo合并seajs模块](http://stylechen.com/gulp-seajs-combo.html)
+
+## 注解
+项目fork地址：[gulp-seajs-combo](https://github.com/chenmnkken/gulp-seajs-combo)
+
+由于老项目要通过gulp打包合并seajs文件，且`gulp-seajs-combo`插件针对我的项目无法正确编译通过，故fork该项目，自己进行了部分重写来达到编译通过的目的；
+
+* 具体解决的问题如下：
+  1. 解决该插件不支持`require("xx.css")`问题；
+  2. 解决在`seajs.config`的alias别名设置中，在打包时，以文件名命名模块id，而不是以alias中的别名；
+  3. 解决在部分文件不能识别成正确的`.js`文件，导致会在 `xx.js` 文件后面加上 `.js` 成 `xx.js.js`
 
 ## License
 
-MIT @ [Yiguo Chan](https://github.com/chenmnkken)
+MIT @ [Jeddy](https://github.com/Jeddy-2020)
