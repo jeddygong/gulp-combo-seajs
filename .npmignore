@@ -1,0 +1,8 @@
+public/
+node_modules/
+docs/
+.gitignore
+.editorconfig
+.eslintrc
+.log
+test/gulpfile.js
