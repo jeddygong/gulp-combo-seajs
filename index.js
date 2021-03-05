@@ -23,7 +23,7 @@ var Promise = require("promise"),
     rSeajsUse = /"(?:\\"|[^"])*"|'(?:\\'|[^'])*'|\/\*[\S\s]*?\*\/|\/(?:\\\/|[^\/\r\n])+\/(?=[^\/])|\/\/.*|\.\s*seajs\.use|(?:^|[^$])\bseajs\.use\s*\((.+)/g,
     rRequire = /"(?:\\"|[^"])*"|'(?:\\'|[^'])*'|\/\*[\S\s]*?\*\/|\/(?:\\\/|[^\/\r\n])+\/(?=[^\/])|\/\/.*|\.\s*require|(?:^|[^$])\brequire\s*\(\s*(["'])(.+?)\1\s*\)/g;
 
-const PLUGIN_NAME = "gulp-seajs-cmobo";
+const PLUGIN_NAME = "gulp-cmobo-seajs";
 
 /*
  * 过滤忽略模块
@@ -446,12 +446,13 @@ var filterIgnore = function(ignore, id, origId) {
 
             // 为匿名模块添加模块名，同时将依赖列表添加到头部
             contents = contents.replace(rDefine, function() {
-                var id;
+                var id = idMap[origId];
                 // 遍历options.map，修改id值为seajs.config中的alias的key
-                Object.keys(options.map).forEach(function (item) {
-                    id = (options.map[item] === modData.path) ? item : idMap[origId];
-                })
-
+                if (options.map instanceof Object) {
+                    Object.keys(options.map).forEach(function (item) {
+                        (options.map[item] === modData.path) && (id = item);
+                    })
+                }
                 return deps.length ?
                     "define('" + id + "',['" + deps.join("','") + "']," :
                     "define('" + id + "',";
@@ -521,7 +522,7 @@ var filterIgnore = function(ignore, id, origId) {
 
             if (options.verbose) {
                 gutil.log(
-                    "gulp-seajs-combo:",
+                    "gulp-cmobo-seajs:",
                     "✔ Module [" + filePath + "] combo success."
                 );
             }

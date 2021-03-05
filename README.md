@@ -1,4 +1,4 @@
-# gulp-seajs-combo
+# gulp-combo-seajs
 
 ***
 > 一个用于 seajs(CMD) 模块合并工具的 gulp 插件。
