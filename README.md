@@ -5,7 +5,7 @@
 
 ## 新特性
 
-* 支持`require("xx.css")`引入问题；
+* 支持`require("xx.css")`引入问题，ps：默认忽略掉该css文件的引入，所以不建议在js文件中require；
 * 以`seajs.config`的alias别名设置文件名命名模块id，而不是以当前文件名命名模块id；
 * 在部分文件不能识别成正确的`.js`文件，导致会在 `xx.js` 文件后面加上 `.js` 成 `xx.js.js`；
 
