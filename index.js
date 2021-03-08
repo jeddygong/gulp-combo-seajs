@@ -199,11 +199,20 @@ var filterIgnore = function(ignore, id, origId) {
      */
     modPathResolve = function(options, filePath) {
         // 过滤query(?)和hash(#)
-        filePath = filePath.replace(rQueryHash, "");
+        var replaceStr = "";
+        filePath = filePath.replace(rQueryHash, function ($) {
+            replaceStr = $;
+            return ""
+        });
 
         var id = filePath.match(rModId)[1],
             extName = path.extname(filePath);
 
+        // 处理css文件
+        if(extName && extName === ".css") {
+            filePath += replaceStr;
+        }
+        
         if (extName && extName === ".js") {
             id = id.replace(extName, "");
         }
@@ -432,7 +441,13 @@ var filterIgnore = function(ignore, id, origId) {
                     firstStr = result.charAt(0);
                     depOrigId = depPathResult.path;
                     depId = idMap[depOrigId] || depPathResult.id;
-                    deps.push(depId);
+
+                    // 打包css时，添加完整路径
+                    if (depPathResult.extName === '.css') {
+                        deps.push(depPathResult.path);
+                    } else {
+                        deps.push(depId);
+                    }
 
                     result = "require('" + depId + "')";
 
