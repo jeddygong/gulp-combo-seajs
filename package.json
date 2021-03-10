@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jeddy-2020/gulp-combo-seajs.git"
+    "url": "git+https://github.com/jeddygong/gulp-combo-seajs.git"
   },
   "keywords": [
     "gulp",
@@ -18,9 +18,9 @@
   "author": "jed.gong.nine@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Jeddy-2020/gulp-combo-seajs/issues"
+    "url": "https://github.com/jeddygong/gulp-combo-seajs/issues"
   },
-  "homepage": "https://github.com/Jeddy-2020/gulp-combo-seajs#readme",
+  "homepage": "https://github.com/jeddygong/gulp-combo-seajs#readme",
   "dependencies": {
     "glob-stream": "^4.1.1",
     "graceful-fs": "^3.0.6",

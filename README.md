@@ -181,4 +181,4 @@ seajs.use( 'a' );
 
 ## License
 
-MIT @ [Jeddy](https://github.com/Jeddy-2020)
+MIT @ [Jeddy](https://github.com/jeddygong)
