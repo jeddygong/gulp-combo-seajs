@@ -405,6 +405,7 @@ var filterIgnore = function(ignore, id, origId) {
         deps = mergePath(options, deps, base);
         options.modArr.push({
             id: id,
+            base: base,
             deps: deps,
             path: modData.path,
             contents: contents,
@@ -446,6 +447,13 @@ var filterIgnore = function(ignore, id, origId) {
                     if (depPathResult.extName === '.css') {
                         deps.push(depPathResult.path);
                     } else {
+                        // 遍历options.map，修改depId值为seajs.config中的alias的key
+                        var nowPath = path.resolve(modData.base, depPathResult.path);
+                        if (options.map instanceof Object) {
+                            Object.keys(options.map).forEach(function (item) {
+                                (options.map[item] === nowPath) && (depId = item);
+                            })
+                        }
                         deps.push(depId);
                     }
 
